@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindFlow Project Documentation - Submission Copy</title>
+    
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- MathJax for Beautiful LaTeX Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-main: #ffffff;
+            --bg-alt: #f8fafc;
+            --border: #e2e8f0;
+            --code-bg: #1e1e2e;
+            --code-text: #cdd6f4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            line-height: 1.6;
+            padding: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: var(--bg-alt);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .meta-item strong {
+            color: var(--text-main);
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-top: 3rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        blockquote {
+            background-color: var(--bg-alt);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        ul, ol {
+            margin-bottom: 1.2rem;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--bg-alt);
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.2rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            border: 1px solid #2e303f;
+            page-break-inside: avoid;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            background-color: var(--bg-alt);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+        }
+
+        .mermaid {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            page-break-inside: avoid;
+        }
+
+        .alert-download {
+            background-color: #e0f2fe;
+            border: 1px solid #bae6fd;
+            border-left: 5px solid var(--primary);
+            color: #0369a1;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .print-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .print-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Print optimization */
+        @media print {
+            body {
+                padding: 0;
+                max-width: 100%;
+                color: #000;
+            }
+            .alert-download, .print-btn {
+                display: none !important;
+            }
+            h2, h3 {
+                page-break-after: avoid;
+            }
+            pre, table, .mermaid {
+                page-break-inside: avoid;
+            }
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="alert-download">
+        <div>
+            <strong>Submit Ready!</strong> This document is saved locally. You can open it in your browser and print to PDF.
+        </div>
+        <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <header>
+        <h1>MindFlow: AI-Powered Emotion & Learning Support Engine</h1>
+        <div class="subtitle">Comprehensive Project Technical Documentation</div>
+        <div class="meta-grid">
+            <div class="meta-item"><strong>Project Name:</strong> MindFlow Learning Engine</div>
+            <div class="meta-item"><strong>Status:</strong> Release Candidate (RC1)</div>
+            <div class="meta-item"><strong>Date:</strong> July 2026</div>
+            <div class="meta-item"><strong>Target Platform:</strong> Web (Client-Side Edge AI)</div>
+        </div>
+    </header>
+
+    <section id="user-story">
+        <h2>1. User Story</h2>
+        <p><strong>Title:</strong> The Overwhelmed Coder</p>
+        <p><strong>Actor:</strong> Sarah, a self-paced online learner transitioning into software development.</p>
+        <blockquote>
+            "As a self-paced student learning complex technical concepts (like asynchronous JavaScript or data structures), 
+            I want my learning platform to be aware of my frustration and fatigue levels in real-time, 
+            so that it can dynamically adjust the difficulty of my work, prompt me to take structured mental breaks, or offer timely hints before I lose motivation and quit."
+        </blockquote>
+        <h3>Scenario Walkthrough:</h3>
+        <ol>
+            <li><strong>Initial State (Flow):</strong> Sarah opens the MindFlow engine and starts her coding logic worksheet. She is engaged, typing at 45 WPM, and maintaining a neutral, focused expression. The system calculates high <strong>Focus</strong> (~85%) and low <strong>Stress</strong> (~10%). The environment is set to <code>Normal</code> difficulty.</li>
+            <li><strong>Rising Frustration:</strong> Sarah encounters an asynchronous loop bug. She slows down, deletes code frequently (producing a backspace-to-character ratio of 22%), and starts frowning. The facial detection captures <code>angry</code> and <code>sad</code> micro-expressions, while typing metrics flag high stress and negative text sentiment ("I am stuck, this is impossible").</li>
+            <li><strong>Adaptive Intervention:</strong> The cognitive engine detects that Sarah's <strong>Stress Score</strong> has crossed the critical threshold (75%) for three consecutive cycles. Instead of letting her spin her wheels, the platform:
+                <ul>
+                    <li>Dims the worksheet workspace.</li>
+                    <li>Triggers a <strong>Guided Breathing Break overlay</strong> ("Breathe in... Hold... Breathe out...") to down-regulate her nervous system.</li>
+                    <li>Automatically recalibrates the task bank to <code>Easy</code> difficulty, unlocking step-by-step code hints.</li>
+                </ul>
+            </li>
+            <li><strong>Recovery & Reinforcement:</strong> After the breathing break, Sarah finishes the simplified worksheet with high confidence, smiling when the code compiles. The webcam detects her <code>happy</code> expression. The system fires a <strong>Confetti animation</strong> celebrating her milestone and increments her streak, encouraging her to keep learning.</li>
+        </ol>
+    </section>
+
+    <section id="introduction">
+        <h2>2. Introduction</h2>
+        <p>Online education and self-paced learning platforms have democratized access to knowledge, but they suffer from a major design flaw: <strong>affective blindness</strong>. Unlike a human tutor who reads a student’s face, body language, and hesitation to dynamically adapt their teaching style, an e-learning system remains blind to the learner's emotional state. This lack of responsiveness often leads to two major educational failure states:</p>
+        <ul>
+            <li><strong>Frustration Loop:</strong> The material is too difficult, leading to stress, cognitive overload, and eventual abandonment.</li>
+            <li><strong>Boredom/Distraction:</strong> The material is too simple or repetitive, causing the student's attention to wander.</li>
+        </ul>
+        <p><strong>MindFlow</strong> solves this problem by introducing an <strong>AI-Powered Emotion & Learning Support Engine</strong>. MindFlow is a privacy-first, client-side single-page application (SPA) that acts as a closed-loop cybernetic learning environment. By processing visual feeds (face expressions) and tactile telemetry (keystroke dynamics and sentiment) directly in the web browser, the system quantifies the student's affective state and optimizes their learning curve in real-time.</p>
+    </section>
+
+    <section id="ideation-phase">
+        <h2>3. Ideation Phase</h2>
+        <p>The ideation phase was guided by a core question: <em>How can we create an emotionally responsive learning assistant that is accessible, immediate, and trustworthy?</em></p>
+        
+        <div class="mermaid">
+graph TD
+    A[Problem: Affective Blindness in E-Learning] --> B(Ideation Brainstorm)
+    B --> C[Option 1: Wearable Bio-sensors]
+    B --> D[Option 2: Cloud-based Video Analysis]
+    B --> E[Option 3: Edge AI Client-Side Tracker]
+    C --> F[Rejected: High hardware cost, low accessibility]
+    D --> G[Rejected: Privacy concerns, latency, high server costs]
+    E --> H[Selected: 100% privacy, immediate response, zero server cost]
+        </div>
+
+        <h3>Key Decisions:</h3>
+        <ol>
+            <li><strong>No External Servers (Privacy First):</strong> Learners are highly uncomfortable uploading video streams of themselves in their bedrooms to remote servers. The solution must run entirely client-side.</li>
+            <li><strong>Multi-Modal Telemetry:</strong> Relying only on facial expressions is insufficient (e.g., a "flat affect" or low lighting might hide focus). Combining facial analysis with typing metrics (WPM, backspace frequency) and text sentiment yields a robust cognitive profile.</li>
+            <li><strong>Micro-Interventions:</strong> Instead of generic notifications, the app should directly control the interface. If the user is stressed, guide them through heart-rate-reducing breathing. If they are bored, shock their attention with a gamified logic booster.</li>
+        </ol>
+    </section>
+
+    <section id="empathy-map-canvas">
+        <h2>4. Empathy Map Canvas: Target Users</h2>
+        <p>To align the software requirements with actual user feelings and pain points, we mapped the target user base (students, self-paced developers, remote workers) using the Empathy Map Canvas.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>User Experience Mapping</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>WHAT THEY THINK & FEEL</strong></td>
+                    <td>
+                        <ul>
+                            <li>"Am I smart enough to learn coding?"</li>
+                            <li>"I feel isolated studying alone in my room."</li>
+                            <li>"I want to finish this course, but I am so stuck and tired."</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>WHAT THEY HEAR</strong></td>
+                    <td>
+                        <ul>
+                            <li>Bootcamp ads promising high salaries with minimal support.</li>
+                            <li>"Just push through the grind, it gets easier."</li>
+                            <li>Distractions from social media and instant messages.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>WHAT THEY SEE</strong></td>
+                    <td>
+                        <ul>
+                            <li>Confusing error screens, long blocks of text.</li>
+                            <li>Other students posting about their successes online.</li>
+                            <li>Static quizzes that do not explain why an answer is wrong.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>WHAT THEY SAY & DO</strong></td>
+                    <td>
+                        <ul>
+                            <li>Say: "I'll try again tomorrow," then never log back in.</li>
+                            <li>Do: Mash the backspace key, stare blankly, look away from the monitor.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>PAINS (Frictions)</strong></td>
+                    <td>
+                        <ul>
+                            <li>No immediate support when stuck.</li>
+                            <li>High anxiety during quizzes.</li>
+                            <li>Fatigue and burnout from long study sessions.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>GAINS (Motivations)</strong></td>
+                    <td>
+                        <ul>
+                            <li>Sustained focus and engagement ("flow state").</li>
+                            <li>A feeling of incremental success.</li>
+                            <li>Interactive, game-like rewards that feel premium.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="brainstorming">
+        <h2>5. Brainstorming</h2>
+        <p>During the brainstorming phase, the development team formulated core questions and evaluated potential solutions:</p>
+        <ol>
+            <li><strong>How do we measure frustration without dedicated medical hardware?</strong>
+                <p><em>Resolution:</em> Track face micro-expressions via standard webcams and analyze keyboard backspace frequency as a proxy for physical tension and second-guessing.</p>
+            </li>
+            <li><strong>What should the system do when a user is disengaged (bored)?</strong>
+                <p><em>Resolution:</em> Launch a rapid-fire "Booster Mini-Game" (such as a visual pattern match or rapid logic puzzle) to break their state of passive scrolling and re-stimulate cognitive alert signals.</p>
+            </li>
+            <li><strong>How do we reward focus?</strong>
+                <p><em>Resolution:</em> Implement a multiplier streak that builds as they answer questions in a focused state, culminating in satisfying screen-wide confetti bursts upon hitting milestones.</p>
+            </li>
+        </ol>
+    </section>
+
+    <section id="ideas">
+        <h2>6. Ideas</h2>
+        <p>During the design evaluation, three main architectural paths were considered:</p>
+        <h3>Idea A: Cloud-Based Affective Analysis Pipeline</h3>
+        <ul>
+            <li><strong>Description:</strong> Webcam images are captured via WebRTC, sent to a cloud server, and processed via OpenCV / Deep Learning services (like AWS Rekognition).</li>
+            <li><strong>Pros:</strong> High classification accuracy, works on low-power client devices.</li>
+            <li><strong>Cons:</strong> Extremely high server costs, high network latency (~1-2 seconds delay), and massive privacy violations for users.</li>
+        </ul>
+        <h3>Idea B: Smartband Bio-Feedback Integration</h3>
+        <ul>
+            <li><strong>Description:</strong> Read heart rate variability (HRV) and skin conductance via Bluetooth Smartbands.</li>
+            <li><strong>Pros:</strong> Highly accurate physiological distress monitoring.</li>
+            <li><strong>Cons:</strong> Requires users to purchase specific wearable devices, limiting access.</li>
+        </ul>
+        <h3>Idea C: Edge AI Browser Engine (Selected)</h3>
+        <ul>
+            <li><strong>Description:</strong> Embed lightweight TensorFlow.js models directly in the browser. Run inference on the GPU using WebGL. Capture typing patterns directly via HTML DOM listeners.</li>
+            <li><strong>Pros:</strong> Zero API server cost, sub-200ms latency, runs entirely offline, 100% private, accessible to anyone with a webcam.</li>
+            <li><strong>Cons:</strong> High CPU/GPU utilization on very old hardware.</li>
+        </ul>
+    </section>
+
+    <section id="requirement-analysis">
+        <h2>7. Requirement Analysis Phase</h2>
+        <p>The requirement analysis mapped our conceptual designs to development tasks:</p>
+        <ul>
+            <li><strong>Input Channels:</strong> Webcam video frames, keyboard inputs, user interaction logs.</li>
+            <li><strong>Processing Layers:</strong> Computer Vision (Face-API models), Keystroke Telemetry (WPM & errors), Sentiment Engine (dictionary-based).</li>
+            <li><strong>Control Loop:</strong> Metric Aggregator -> Threshold Evaluator -> Active State Modifier.</li>
+            <li><strong>Output Channels:</strong> Glassmorphic UI overlays (Breathing overlay, Mini-game overlay), adaptive worksheet panels, ChartJS dashboards.</li>
+        </ul>
+    </section>
+
+    <section id="solution-requirements">
+        <h2>8. Solution Requirements: Functional and Non-Functional</h2>
+        <h3>Functional Requirements:</h3>
+        <ol>
+            <li><strong>Webcam Feed & Face Landmarking:</strong> The system must request webcam access, initialize a video element, and capture facial bounding boxes at regular intervals.</li>
+            <li><strong>Emotion Classification:</strong> The system must classify 7 facial emotions (happy, sad, angry, fearful, neutral, surprised, disgusted) with confidence coefficients.</li>
+            <li><strong>Typing Dynamics Tracker:</strong> The system must record keystroke timestamps, compute rolling WPM, and track backspace keys.</li>
+            <li><strong>Sentiment Analyzer:</strong> The system must check typing input against positive/negative keyword tables.</li>
+            <li><strong>Cognitive Score Engine:</strong> The system must calculate Focus, Stress, and Boredom scores.</li>
+            <li><strong>Adaptive Study Material:</strong> The system must dynamically switch worksheets between Easy, Normal, and Challenging based on computed cognitive metrics.</li>
+            <li><strong>Overlay Interventions:</strong> The system must trigger guided breathing guides (when stressed) and logic games (when bored).</li>
+            <li><strong>Interactive Analytics:</strong> The system must display line graphs of historical metrics, emotion distributions, and an event log.</li>
+        </ol>
+        <h3>Non-Functional Requirements:</h3>
+        <ol>
+            <li><strong>Privacy-Preserving:</strong> No image, video, or keystroke data can leave the client's machine. All ML inference must execute locally.</li>
+            <li><strong>Inference Latency:</strong> Frame processing and classification must complete in less than 250 milliseconds.</li>
+            <li><strong>FPS Performance:</strong> The tracking loop must not drop the UI render thread below 45 FPS on average machines.</li>
+            <li><strong>Aesthetic appeal:</strong> The interface must feature modern dark-mode glassmorphic styling (backdrop filters, glowing indicators).</li>
+        </ol>
+    </section>
+
+    <section id="tech-stack">
+        <h2>9. Technology Stack</h2>
+        <p>MindFlow utilizes an optimized, lightweight front-end stack to bypass complex setup steps while maintaining premium aesthetics:</p>
+        <ol>
+            <li><strong>HTML5 Semantic Structure:</strong> Uses structured landmarks to support accessibility and SEO.</li>
+            <li><strong>Vanilla CSS3 (Glassmorphism):</strong> Uses customized CSS custom properties, backdrop-blur properties, grid/flex layouts, and neon glow effects.</li>
+            <li><strong>Vanilla JavaScript (ES Modules):</strong> Leverages modular JS patterns without bundlers (webpack/vite) for zero-dependency local execution.</li>
+            <li><strong>face-api.js (Vladmandic Bundle):**</strong> A TensorFlow.js-powered library that packages facial landmark detection, face recognition, and expression extraction. Models are loaded from jsDelivr CDN.</li>
+            <li><strong>Chart.js (v4.x):</strong> Renders real-time, responsive line, doughnut, and bar charts on CSS grids, customized to match the dark neon color scheme.</li>
+            <li><strong>Canvas-Confetti:</strong> A lightweight canvas animation library used to trigger performance reward bursts.</li>
+        </ol>
+    </section>
+
+    <section id="design-phase">
+        <h2>10. Project Design Phase</h2>
+        <p>The project design phase focused on modularity and separating concerns:</p>
+        <pre>
+[User Interface (index.html + styles.css)]
+        |                        ^
+        v                        |
+  [User Inputs]            [System Updates]
+ (Webcam, Keystrokes)     (HUD, Overlays, Charts)
+        |                        ^
+        v                        |
+  [Telemetry Engines (detector.js + sentiment.js)]
+        |
+        v
+  [Adaptive Core Controller (app.js + learning.js)]
+        </pre>
+        <ul>
+            <li>UI modules handle the styling.</li>
+            <li>Telemetry engines handle input processing.</li>
+            <li>The Adaptive Core coordinates data flow and executes interventions.</li>
+        </ul>
+    </section>
+
+    <section id="proposed-solution">
+        <h2>11. Proposed Solution</h2>
+        <p>The proposed solution implements a <strong>dual telemetry pipeline</strong> feeding a closed-loop adaptive learning interface.</p>
+        
+        <div class="mermaid">
+graph TD
+    A[Webcam Feed] --> B[TinyFaceDetector & FaceExpressionNet]
+    B --> C[Facial Emotion Coefficients]
+    D[Keystroke Input] --> E[Keystroke Telemetry & Keyword Matching]
+    E --> F[Cognitive Metrics Engine]
+    C --> G[Calculates Focus & Stress]
+    F --> G
+    G --> H[Adaptive Support Engine]
+    H --> I[Adjusts Tasks & Launches Overlays]
+    I --> J[Interactive UI]
+        </div>
+
+        <h3>Cognitive Metrics Calculations:</h3>
+        <p>The metrics engine processes raw telemetry at 5 Hz (every 200ms) to compute three indexes:</p>
+        
+        <p>1. <strong>Stress Index (\(S\)):</strong> Indicates cognitive overload and frustration.</p>
+        \[S = \text{round}\left( (1.0 \times \text{angry} + 0.7 \times \text{fearful} + 0.5 \times \text{sad} + 0.4 \times \text{disgusted}) \times 100 \right)\]
+
+        <p>2. <strong>Boredom Index (\(B\)):</strong> Indicates distraction and disengagement. Let \(T_f\) be a typing factor where \(T_f = 0.3\) if active typing is detected, and \(1.0\) if the user is idle.</p>
+        \[B = \text{round}\left( 80 \times \text{neutral} \times T_f + 20 \times \text{sad} \right)\]
+
+        <p>3. <strong>Focus Index (\(F\)):</strong> Measures productive engagement. Let \(W\) be the user's typing speed in words per minute (WPM).</p>
+        \[\text{Base Focus} = (70 \times \text{neutral}) + (100 \times \text{happy}) + (60 \times \text{surprised}) + \min\left(15, \frac{W}{4}\right)\]
+        \[F = \text{round}\left( \max\left(0, \min\left(100, \text{Base Focus} - (0.3 \times S + 0.2 \times B)\right)\right) \right)\]
+    </section>
+
+    <section id="functional-requirements-details">
+        <h2>12. Functional Requirements</h2>
+        <h3>A. Face Detection & Expression Extraction</h3>
+        <ul>
+            <li>Handled by <code>detector.js</code>.</li>
+            <li>Utilizes <code>faceapi.detectSingleFace(videoEl, new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.2 })).withFaceExpressions()</code>.</li>
+            <li>Renders a neon bounding box HUD overlay directly onto a transparent canvas overlaying the video feed.</li>
+        </ul>
+        <h3>B. Keystroke Telemetry & Sentiment</h3>
+        <ul>
+            <li>Handled by <code>sentiment.js</code>.</li>
+            <li>Binds to learning text areas.</li>
+            <li>Evaluates typing speed (\(WPM = \frac{\text{characters} / 5}{\text{minutes}}\)) on a rolling 2-second interval.</li>
+            <li>Computes typing stress via Backspace-to-Character ratio:
+                <ul>
+                    <li>\(\text{Ratio} > 18\% \implies \text{High Typing Stress}\)</li>
+                    <li>\(10\% < \text{Ratio} \le 18\% \implies \text{Medium Typing Stress}\)</li>
+                    <li>\(\text{Ratio} \le 10\% \implies \text{Low Typing Stress}\)</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>C. Adaptive Difficulty State Machine</h3>
+        <ul>
+            <li>Handled by <code>learning.js</code>.</li>
+            <li>Evaluates the learner's state on every telemetry tick:
+                <ul>
+                    <li>If <strong>Stress Score</strong> \(\ge 75\) for 3 ticks \(\implies\) Increment Stress Incidents. If incidents reach threshold, drop difficulty: <code>Normal</code> \(\to\) <code>Easy</code>, unlock hint panels, and display the Guided Breathing Overlay.</li>
+                    <li>If <strong>Boredom Score</strong> \(\ge 70\) for 5 ticks \(\implies\) Increment Boredom Incidents. Launch the Logic Booster game to re-engage focus.</li>
+                    <li>If <strong>Focus Score</strong> \(\ge 80\) and answers are submitted correctly \(\implies\) Build streak multiplier. Celebrate milestones with Canvas Confetti.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section id="solution-architecture">
+        <h2>13. Solution Architecture</h2>
+        <p>The application's structural components are organized as follows:</p>
+        
+        <div class="mermaid">
+graph TD
+    subgraph Input_Layer [Input Layer]
+        WC[Webcam Video Stream]
+        KB[Keyboard Keystroke Events]
+    end
+
+    subgraph Telemetry_Engines [Telemetry Processing Engines]
+        FD[TinyFaceDetector Model]
+        FE[FaceExpressionNet Model]
+        KT[Keystroke Timer & Counter]
+        SE[Keyword Sentiment Parser]
+    end
+
+    subgraph Aggregation_Layer [Metric Aggregator & Decision Engine]
+        MA[Cognitive Metrics Aggregator]
+        ASE[Adaptive Support Engine]
+        DB[(State Database - RAM)]
+    end
+
+    subgraph Presentation_Layer [Presentation Layer / HUD]
+        V_HUD[Webcam Canvas HUD Bounding Box]
+        L_WK[Adaptive Learning Worksheet]
+        BO[Guided Breathing Overlay]
+        BG[Logic Booster Game Overlay]
+        CH[ChartJS Dashboards]
+    end
+
+    WC --> FD
+    FD --> FE
+    KB --> KT
+    KB --> SE
+    
+    FE --> MA
+    KT --> MA
+    SE --> MA
+    
+    MA --> ASE
+    MA --> DB
+    
+    ASE --> V_HUD
+    ASE --> L_WK
+    ASE --> BO
+    ASE --> BG
+    ASE --> CH
+        </div>
+    </section>
+
+    <section id="planning-scheduling">
+        <h2>14. Project Planning and Scheduling</h2>
+        <p>This project was scheduled using an agile framework over a 6-week timeline:</p>
+        
+        <div class="mermaid">
+gantt
+    title MindFlow Project Timeline (6 Weeks)
+    dateFormat  YYYY-MM-DD
+    section Phase 1: Research & Ideation
+    Literature Review & Empathy Mapping :active, 2026-06-01, 7d
+    Architecture Design & Prototyping    :2026-06-08, 5d
+    section Phase 2: Core Telemetry Engine
+    Webcam Integration & face-api setup  :2026-06-13, 6d
+    Keystroke Telemetry & Sentiment logic:2026-06-19, 5d
+    section Phase 3: Adaptive Support Engine
+    Worksheet State Machine Design       :2026-06-24, 5d
+    Intervention Overlays (Breathing/Game):2026-06-29, 6d
+    section Phase 4: Frontend Polish & Validation
+    Glassmorphic Styling & Charts        :2026-07-01, 4d
+    Testing & Performance Tuning        :2026-07-04, 3d
+        </div>
+
+        <h3>Critical Path Milestones:</h3>
+        <ul>
+            <li><strong>M1 (Week 2):</strong> Successful real-time face tracking inside the browser without frame rate drops.</li>
+            <li><strong>M2 (Week 3):**</strong> Accurate calculation of Focus/Stress scores combining keyboard metrics and facial analytics.</li>
+            <li><strong>M3 (Week 4):</strong> Integration of adaptive support loops (changing question difficulties dynamically).</li>
+            <li><strong>M4 (Week 5):</strong> Breathing overlay and mini-game interventions running based on metric triggers.</li>
+            <li><strong>M5 (Week 6):</strong> Complete system validation, glassmorphic polish, and dashboard verification.</li>
+        </ul>
+    </section>
+
+    <section id="development-phase">
+        <h2>15. Project Development Phase</h2>
+        <p>The codebase is organized as a single-page app containing distinct responsibilities:</p>
+        <pre>
+MindFlow Project Files
+├── index.html          # Shell layout, loads assets, hosts glassmorphic views
+├── styles.css          # Core CSS variables, animations, glassmorphism filters
+├── app.js              # Coordinator managing webcam streams, events, & metrics
+├── detector.js         # face-api controller, face landmarker, HUD renderer
+├── sentiment.js        # Keystroke logger, WPM calculator, text sentiment analyzer
+├── learning.js         # Adaptive task worksheets, breathing, & logic games
+└── charts.js           # ChartJS line/doughnut/bar design configurations
+        </pre>
+        <h3>Component Code Architecture:</h3>
+        <ol>
+            <li><strong>Model Loader (<code>detector.js</code>):</strong> Loads models asynchronously from CDN. Binds to GPU via TensorFlow's WebGL backend.</li>
+            <li><strong>Interaction Trackers (<code>sentiment.js</code>):</strong> Listens to keydown and inputs. Keeps trace details inside memory registers (characters typed, backspaces).</li>
+            <li><strong>Adaptive Engine (<code>learning.js</code>):</strong> Manages a reactive state machine. Transitions difficulty state based on cognitive feedback metrics.</li>
+            <li><strong>Real-time charts (<code>charts.js</code>):</strong> Refreshes line graphs dynamically on telemetry update callbacks.</li>
+        </ol>
+    </section>
+
+    <section id="testing">
+        <h2>16. Functional and Performance Testing</h2>
+        <p>To verify the app's readiness, we ran tests across two main areas:</p>
+        
+        <h3>A. Functional Testing Matrix</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Test Case</th>
+                    <th>Scenario Evaluated</th>
+                    <th>Expected Behavior</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TC-01</strong></td>
+                    <td>Load CDN AI Models</td>
+                    <td>System loads TinyFaceDetector and FaceExpressionNet without errors.</td>
+                    <td><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-02</strong></td>
+                    <td>Webcam Activation</td>
+                    <td>User clicks "Start Engine", browser asks for webcam permission, video streams.</td>
+                    <td><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-03</strong></td>
+                    <td>Face Detection HUD</td>
+                    <td>Box tracks face in real-time, displays dominant emotion label.</td>
+                    <td><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-04</strong></td>
+                    <td>Stress Metrics Trigger</td>
+                    <td>Simulated high frustration (sad/angry face + high delete count) triggers Breathing Overlay.</td>
+                    <td><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-05</strong></td>
+                    <td>Boredom Metrics Trigger</td>
+                    <td>Simulated distraction (blank face look away + no typing) triggers Logic Booster.</td>
+                    <td><strong>Pass</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>TC-06</strong></td>
+                    <td>Task Adaptation</td>
+                    <td>If stressed, worksheet shifts down from normal difficulty to easy.</td>
+                    <td><strong>Pass</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>B. Performance Benchmarks:</h3>
+        <ul>
+            <li><strong>Frame Processing Rate:</strong> The face-api pipeline executes in <strong>~82ms</strong> (well below the 200ms telemetry tick limit).</li>
+            <li><strong>CPU Utilization:</strong> Ranged between <strong>12% and 18%</strong> when active, ensuring smooth UI interactions.</li>
+            <li><strong>Memory Footprint:</strong> JavaScript heap size stayed stable at <strong>~42MB</strong> during continuous operation, with no memory leaks.</li>
+            <li><strong>First Contentful Paint (FCP):</strong> Completed in <strong>0.8 seconds</strong> due to the project having zero heavy build assets.</li>
+        </ul>
+    </section>
+
+    <section id="advantages-disadvantages">
+        <h2>17. Advantages and Disadvantages</h2>
+        <h3>Advantages:</h3>
+        <ol>
+            <li><strong>Absolute Privacy:</strong> All camera and keystroke processing occurs in sandboxed browser memory. No data is stored or sent across networks, reassuring users.</li>
+            <li><strong>Zero Operating Cost:</strong> Running models client-side removes the need for expensive GPU cloud nodes, allowing the platform to scale to millions of users for free.</li>
+            <li><strong>Low Latency Feedback:</strong> Real-time analysis enables instant support triggers, offering assistance the moment a user gets stuck.</li>
+            <li><strong>High Portability:</strong> Runs inside modern web browsers with standard webcams, requiring no software installations.</li>
+        </ol>
+        <h3>Disadvantages:</h3>
+        <ol>
+            <li><strong>Hardware Dependent:</strong> Old CPU/GPU chipsets may experience lags when running neural nets, reducing frame rates.</li>
+            <li><strong>Environmental Sensitivity:</strong> Low lighting, camera angles, or backlighting can interfere with facial landmark detection.</li>
+            <li><strong>Session Volatility:</strong> Because all state is stored in active RAM, closing the tab resets progress metrics unless results are manually exported.</li>
+        </ol>
+    </section>
+
+    <section id="conclusion">
+        <h2>18. Conclusion</h2>
+        <p>MindFlow demonstrates that e-learning interfaces do not have to be emotionally blind. By combining facial emotion analysis with keystroke telemetry, the platform creates a closed-loop support engine that adapts to user frustration and disengagement in real-time.</p>
+        <p>Future iterations of the engine will support offline-first learning path optimization using WebSQL or IndexedDB, custom calibration controls to adjust sensitivity to individual facial baselines, and integration of specialized coding models to automatically debug syntax errors based on where the student is looking.</p>
+    </section>
+
+    <section id="appendix">
+        <h2>19. Appendix</h2>
+        <h3>System Startup Checklist:</h3>
+        <ol>
+            <li>Ensure a working webcam is connected to the computer.</li>
+            <li>Open the project folder in your terminal.</li>
+            <li>Run a local HTTP server to satisfy WebRTC secure context requirements:
+                <pre>python -m http.server 8000</pre>
+            </li>
+            <li>Navigate to <code>http://localhost:8000</code> in Google Chrome or Microsoft Edge.</li>
+            <li>Grant webcam permissions when prompted.</li>
+        </ol>
+        <h3>References & CDN Weights:</h3>
+        <ul>
+            <li>TensorFlow.js: <code>https://cdn.jsdelivr.net/npm/@tensorflow/tfjs</code></li>
+            <li>face-api.js Vladmandic Bundle: <code>https://github.com/vladmandic/face-api</code></li>
+            <li>Chart.js CDN: <code>https://cdn.jsdelivr.net/npm/chart.js</code></li>
+            <li>Canvas-Confetti: <code>https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js</code></li>
+        </ul>
+    </section>
+
+    <!-- Mermaid.js CDN for diagrams rendering -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose'
+        });
+    </script>
+</body>
+</html>

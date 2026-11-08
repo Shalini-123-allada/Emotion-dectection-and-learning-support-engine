@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindFlow | AI-Powered Emotion & Learning Support Engine</title>
+    <meta name="description" content="Optimize your learning flow with real-time emotion recognition, typing analytics, and adaptive learning support interventions.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- App Container -->
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon"><i class="fa-solid fa-brain-circuit"></i></div>
+                <div class="logo-text">
+                    <h1>MindFlow</h1>
+                    <span>Emotion-Adaptive Learning Engine</span>
+                </div>
+            </div>
+            
+            <!-- Global Telemetry Status -->
+            <div class="global-status">
+                <div class="status-indicator" id="camera-status">
+                    <span class="pulse-dot red"></span>
+                    <span class="status-label">Camera Offline</span>
+                </div>
+                <div class="status-indicator" id="model-status">
+                    <span class="pulse-dot amber"></span>
+                    <span class="status-label">Loading AI Models...</span>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <nav class="app-nav">
+                <button class="nav-btn active" id="btn-study" onclick="switchTab('study')">
+                    <i class="fa-solid fa-graduation-cap"></i> Study Arena
+                </button>
+                <button class="nav-btn" id="btn-dashboard" onclick="switchTab('dashboard')">
+                    <i class="fa-solid fa-chart-line"></i> Analytics Dashboard
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Body Grid -->
+        <main class="app-main">
+            
+            <!-- SECTION 1: STUDY ARENA -->
+            <div id="tab-study" class="tab-pane active">
+                <div class="study-grid">
+                    
+                    <!-- Left Sidebar (Inputs & Live Telemetry) -->
+                    <aside class="telemetry-panel">
+                        
+                        <!-- Webcam Card -->
+                        <div class="glass-card camera-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-video"></i> Live Face Tracker</h3>
+                                <button class="toggle-webcam-btn" id="btn-webcam" onclick="toggleWebcam()">
+                                    <i class="fa-solid fa-camera-rotate"></i> Start Webcam
+                                </button>
+                            </div>
+                            <div class="video-container">
+                                <video id="webcam" autoplay muted playsinline></video>
+                                <canvas id="overlay"></canvas>
+                                <div class="video-placeholder" id="webcam-placeholder">
+                                    <i class="fa-solid fa-user-gear"></i>
+                                    <p>Webcam stream not active.<br>Enable access to track emotions.</p>
+                                </div>
+                            </div>
+                            <!-- Live Emotion Distribution -->
+                            <div class="live-emotions" id="live-emotions-bar-container">
+                                <div class="emotion-meter">
+                                    <span class="label">Focused / Engaged</span>
+                                    <div class="bar-outer"><div class="bar-inner focused" id="bar-focus" style="width: 0%"></div></div>
+                                    <span class="val" id="val-focus">0%</span>
+                                </div>
+                                <div class="emotion-meter">
+                                    <span class="label">Frustrated / Stressed</span>
+                                    <div class="bar-outer"><div class="bar-inner frustrated" id="bar-stress" style="width: 0%"></div></div>
+                                    <span class="val" id="val-stress">0%</span>
+                                </div>
+                                <div class="emotion-meter">
+                                    <span class="label">Bored / Disengaged</span>
+                                    <div class="bar-outer"><div class="bar-inner bored" id="bar-bored" style="width: 0%"></div></div>
+                                    <span class="val" id="val-bored">0%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Typing Telemetry & Sentiment Card -->
+                        <div class="glass-card reflection-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-pen-nib"></i> Reflection Workspace</h3>
+                                <div class="telemetry-badge" id="telemetry-wpm">0 WPM</div>
+                            </div>
+                            <div class="card-body">
+                                <p class="helper-text">Summarize your learning path or note down thoughts. We analyze typing stress levels & text sentiment.</p>
+                                <textarea id="reflection-textarea" placeholder="Type your summaries, code notes, or reflections here..."></textarea>
+                                <div class="sentiment-results">
+                                    <div class="sentiment-item">
+                                        <span>Tone:</span>
+                                        <strong id="sentiment-label" class="neutral">Neutral</strong>
+                                    </div>
+                                    <div class="sentiment-item">
+                                        <span>Typing Stress:</span>
+                                        <strong id="typing-stress-label" class="low">Low</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Center Area (Learning Workspace) -->
+                    <section class="workspace-panel">
+                        
+                        <!-- Header Widget (Streak / Adaptive Status) -->
+                        <div class="support-status-bar">
+                            <div class="metric">
+                                <span class="lbl">Learning Flow State</span>
+                                <span class="val state-neutral" id="current-flow-status">Steady</span>
+                            </div>
+                            <div class="metric">
+                                <span class="lbl">Streak Multiplier</span>
+                                <span class="val" id="streak-multiplier"><i class="fa-solid fa-fire"></i> 1.0x</span>
+                            </div>
+                            <div class="metric">
+                                <span class="lbl">Support Interventions</span>
+                                <span class="val" id="intervention-count">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Learning Workspace Card -->
+                        <div class="glass-card learning-card" id="learning-workspace">
+                            
+                            <!-- Welcome Screen -->
+                            <div class="workspace-screen active" id="screen-welcome">
+                                <div class="welcome-hero">
+                                    <div class="pulse-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+                                    <h2>Choose a Study Module</h2>
+                                    <p>Select an interactive module below to start learning. MindFlow's Engine will monitor your emotional feedback and support you when you get stuck.</p>
+                                </div>
+                                <div class="module-cards">
+                                    <div class="module-card" onclick="startModule('logic')">
+                                        <div class="icon green"><i class="fa-solid fa-calculator"></i></div>
+                                        <h4>Math & Logic</h4>
+                                        <p>Dynamic quiz designed to test quick calculation and logic. Adapts to your performance.</p>
+                                        <span class="difficulty">Adaptive Difficulty</span>
+                                    </div>
+                                    <div class="module-card" onclick="startModule('code')">
+                                        <div class="icon purple"><i class="fa-solid fa-code"></i></div>
+                                        <h4>Code Debugger</h4>
+                                        <p>Find syntax and logical issues in scripts. Generates hints when frustration is high.</p>
+                                        <span class="difficulty">Medium Complexity</span>
+                                    </div>
+                                    <div class="module-card" onclick="startModule('reading')">
+                                        <div class="icon blue"><i class="fa-solid fa-book-open"></i></div>
+                                        <h4>Speed Comprehension</h4>
+                                        <p>Read short technical text, analyze information, and answer comprehension questions.</p>
+                                        <span class="difficulty">High Focus Needed</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Module Workspace (Dynamic Content) -->
+                            <div class="workspace-screen" id="screen-module">
+                                <div class="workspace-header">
+                                    <button class="back-btn" onclick="exitModule()"><i class="fa-solid fa-arrow-left"></i> Exit Module</button>
+                                    <h3 id="module-title">Math & Logic</h3>
+                                    <span class="status-tag" id="difficulty-tag">Normal</span>
+                                </div>
+                                
+                                <hr class="divider">
+                                
+                                <div class="module-content" id="module-display-area">
+                                    <!-- Populated dynamically by learning.js -->
+                                </div>
+
+                                <div class="module-actions">
+                                    <button class="hint-btn" id="btn-hint" onclick="requestHint()" disabled>
+                                        <i class="fa-solid fa-lightbulb"></i> Unlock Hint (Unlockable at high stress)
+                                    </button>
+                                    <button class="submit-btn" id="btn-submit-answer" onclick="submitAnswer()">
+                                        Submit Answer <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guided Breathing Overlay (Triggered by stress intervention) -->
+                        <div class="intervention-overlay" id="breathing-intervention-overlay">
+                            <div class="breathing-card">
+                                <div class="breathing-header">
+                                    <div class="icon-ring"><i class="fa-solid fa-wind"></i></div>
+                                    <h2>Frustration Detected</h2>
+                                    <p>Your typing telemetry and facial expression suggest elevated cognitive load. Let's take a short mental reset.</p>
+                                </div>
+                                <div class="breathing-anim-container">
+                                    <div class="breathing-circle-outer"></div>
+                                    <div class="breathing-circle" id="breathing-circle"></div>
+                                    <div class="breathing-text" id="breathing-text">Inhale</div>
+                                </div>
+                                <p class="breathing-subtext">Follow the expanding and contracting circle. Focus only on your breath.</p>
+                                <button class="skip-btn" onclick="skipBreathing()">Skip Break</button>
+                            </div>
+                        </div>
+
+                        <!-- Booster Prompt Overlay (Triggered by boredom) -->
+                        <div class="intervention-overlay" id="booster-intervention-overlay">
+                            <div class="booster-card">
+                                <div class="booster-header">
+                                    <div class="icon-ring alert"><i class="fa-solid fa-bolt"></i></div>
+                                    <h2>Focus Warning</h2>
+                                    <p>Looks like you are starting to lose focus or feeling bored. Let's fire up your attention with a 15-second logic quickfire!</p>
+                                </div>
+                                <div class="booster-content" id="booster-puzzle-area">
+                                    <!-- Dynamic rapid puzzle -->
+                                </div>
+                                <div class="booster-actions">
+                                    <button class="booster-submit" onclick="submitBooster()">Submit Answer</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+
+            <!-- SECTION 2: ANALYTICS DASHBOARD -->
+            <div id="tab-dashboard" class="tab-pane">
+                <div class="dashboard-grid">
+                    
+                    <!-- Top Summary Stats -->
+                    <section class="dashboard-metrics">
+                        <div class="glass-card metric-card">
+                            <i class="fa-solid fa-gauge-high icon-color green"></i>
+                            <div>
+                                <span class="label">Average Focus Index</span>
+                                <h3 id="dash-focus-index">0%</h3>
+                            </div>
+                        </div>
+                        <div class="glass-card metric-card">
+                            <i class="fa-solid fa-heart-pulse icon-color red"></i>
+                            <div>
+                                <span class="label">Cognitive Stress Index</span>
+                                <h3 id="dash-stress-index">0%</h3>
+                            </div>
+                        </div>
+                        <div class="glass-card metric-card">
+                            <i class="fa-solid fa-clock icon-color blue"></i>
+                            <div>
+                                <span class="label">Total Flow Session Time</span>
+                                <h3 id="dash-session-time">00:00</h3>
+                            </div>
+                        </div>
+                        <div class="glass-card metric-card">
+                            <i class="fa-solid fa-award icon-color amber"></i>
+                            <div>
+                                <span class="label">Success Score</span>
+                                <h3 id="dash-success-score">0</h3>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Charts Panel -->
+                    <section class="dashboard-charts">
+                        <div class="glass-card chart-card wide">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-chart-line"></i> Real-time Focus & Stress Trends</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="focusTrendChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-row-split">
+                            <div class="glass-card chart-card">
+                                <div class="card-header">
+                                    <h3><i class="fa-solid fa-chart-pie"></i> Emotion Distribution</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="emotionPieChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="glass-card chart-card">
+                                <div class="card-header">
+                                    <h3><i class="fa-solid fa-chart-bar"></i> Flow-State Categories</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="flowBarChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Logs Panel -->
+                    <section class="dashboard-logs">
+                        <div class="glass-card log-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-list-check"></i> Empathy & Intervention Log</h3>
+                                <button class="clear-log-btn" onclick="clearEventLog()">Clear logs</button>
+                            </div>
+                            <div class="log-table-container">
+                                <table class="log-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Triggering Emotion</th>
+                                            <th>Engine Action / Intervention</th>
+                                            <th>Outcome State</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="empathy-log-body">
+                                        <!-- Populated dynamically -->
+                                        <tr class="empty-row"><td colspan="4">No logs collected in this session. Start studying!</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </main>
+        
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>&copy; 2026 MindFlow. Built with client-side TensorFlow.js. All biometric data remains local.</p>
+        </footer>
+
+    </div>
+
+    <!-- CDN Libraries (face-api.js, Chart.js, Canvas-Confetti) -->
+    <!-- vladmandic face-api.js bundled version -->
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.0/dist/face-api.js"></script>
+    <!-- Chart.js UMD build -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- canvas-confetti bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Project Scripts -->
+    <script src="detector.js"></script>
+    <script src="sentiment.js"></script>
+    <script src="learning.js"></script>
+    <script src="charts.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
